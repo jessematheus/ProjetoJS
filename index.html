@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Loja Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+    <h2>Vitrine:</h2>
+    <div id="produtos">
+
+    </div>
+    <h2>Carrinho:</h2>
+    <div id="carrinho">
+
+    </div>
+    <div id="loja">
+        <script>
+            const itens = [
+                {
+                    id: 0,
+                    nome: 'Camiseta',
+                    img: 'src/camisa.png',
+                    quantidade: 0
+                },
+                {
+                    id: 1,
+                    nome: 'Short',
+                    img: 'src/short.png',
+                    quantidade: 0
+                },
+                {
+                    id: 2,
+                    nome: 'Sapato',
+                    img: 'src/sapato.png',
+                    quantidade: 0
+                },
+                {
+                    id: 3,
+                    nome: 'Teste',
+                    img: 'src/img.png',
+                    quantidade: 0
+                }
+            ]
+            inicializaLojas = () => {
+                var containerProdutos = document.getElementById('produtos');
+                itens.map((val) => {
+                    containerProdutos.innerHTML += `
+                <div class="produto-single">
+                <img src="`+ val.img + ` "/>
+                <p>`+ val.nome + `</p>
+                <a name="add" key="`+ val.id + `" href="#">Adicionar ao carrinho!<a/>
+                <button id="excluir" key="`+ val.id + `" href="#">Apagar do carrinho!
+                            
+                `;
+                })
+            }
+            inicializaLojas();
+            atualizarCarrinho = () => {
+                var containerCarrinho = document.getElementById('carrinho');
+                containerCarrinho.innerHTML = "";
+                itens.map((val) => {
+                    if (val.quantidade > 0) {
+                        containerCarrinho.innerHTML += `
+                <div class="info-single">
+                <p style="float: left;">Produto `+ val.nome + ` </p>
+                <p style="FLOAT: right;">Quantidade `+ val.quantidade + `</p>
+                <div style="clear: both"></div>
+                </div>
+                `;
+                    }
+                    console.log(containerCarrinho);
+                })
+            }
+            var links = document.getElementsByTagName('a');
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener("click", function () {
+                    let key = this.getAttribute('key');
+                    itens[key].quantidade++;
+
+                    atualizarCarrinho();
+                    return false;
+                })
+            }
+            var links = document.getElementsByTagName('button');
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener("click", function () {
+                    let key = this.getAttribute('key');
+                    itens[key].quantidade--;
+
+                    atualizarCarrinho();
+                    return false;
+                })
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>
